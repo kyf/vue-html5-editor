@@ -1,9 +1,9 @@
 <div class="dashboard-font" style="line-height: 36px;">
-    <div>
+    <div v-show="false">
         <label>{{$parent.locale["heading"]}}:</label>
         <button v-for="h in 6" type="button" @click="setHeading(h)">H{{h}}</button>
     </div>
-    <div>
+    <div v-show="false">
         <label>
             {{$parent.locale["font name"]}}:
         </label>
@@ -15,7 +15,7 @@
         </label>
         <button v-for="size in fontSizeList" type="button" @click="setFontSize(size)">{{size}}</button>
     </div>
-    <div>
+    <div v-show="false">
         <label>
             {{$parent.locale["line height"]}}:
         </label>
