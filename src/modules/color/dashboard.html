@@ -10,7 +10,7 @@
         </label>
     </div>
     <div>
-        <div v-for="color in colors" :style="{'background-color':color}" class="color-card"
+        <div v-for="color in colors" :style="{'background-color':color}" class="color-card" :title="color"
              @click="changeColor(color)">
         </div>
         <div style="clear: both"></div>

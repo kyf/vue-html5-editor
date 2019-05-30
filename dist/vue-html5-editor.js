@@ -1,7 +1,7 @@
 /**
- * Vue-html5-editor 1.1.0
+ * Vue-html5-editor 1.1.1
  * https://github.com/kyf456/vue-html5-editor
- * build at Wed May 29 2019 19:47:23 GMT+0800 (GMT+08:00)
+ * build at Thu May 30 2019 15:11:50 GMT+0800 (GMT+08:00)
  */
 
 (function (global, factory) {
@@ -104,7 +104,7 @@ var align = {
     dashboard: dashboard
 };
 
-var template$1 = "<div> <div> <label> <input type=\"radio\" value=\"foreColor\" v-model=\"command\">&nbsp; {{$parent.locale[\"fore color\"]}} </label> <label> <input type=\"radio\" value=\"backColor\" v-model=\"command\">&nbsp; {{$parent.locale[\"background color\"]}} </label> </div> <div> <div v-for=\"color in colors\" :style=\"{'background-color':color}\" class=\"color-card\" @click=\"changeColor(color)\"> </div> <div style=\"clear: both\"></div> </div> </div> ";
+var template$1 = "<div> <div> <label> <input type=\"radio\" value=\"foreColor\" v-model=\"command\">&nbsp; {{$parent.locale[\"fore color\"]}} </label> <label> <input type=\"radio\" value=\"backColor\" v-model=\"command\">&nbsp; {{$parent.locale[\"background color\"]}} </label> </div> <div> <div v-for=\"color in colors\" :style=\"{'background-color':color}\" class=\"color-card\" :title=\"color\" @click=\"changeColor(color)\"> </div> <div style=\"clear: both\"></div> </div> </div> ";
 
 __$styleInject(".vue-html5-editor .color-card{margin:2px;width:30px;height:30px;float:left;cursor:pointer}",undefined);
 
@@ -123,7 +123,7 @@ var dashboard$1 = {
                 '#333300', '#333366', '#660000', '#660033', '#663300', '#666600', '#666633',
                 '#666666', '#666699', '#990000', '#990033', '#9900CC', '#996600', '#FFCC00',
                 '#FFCCCC', '#FFCC99', '#FFFF00', '#FF9900', '#CCFFCC', '#CCFFFF', '#CCFF99',
-                '#555555', '#D3A453', '#504F4F', '#A0A0A0', '#F46D73'
+                '#555555', '#D3A453', '#504F4F', '#A0A0A0', '#F46D73', '#488BF8'
             ]
         }
     },
@@ -545,7 +545,7 @@ var dashboard$4 = {
     template: template$4,
     data: function data(){
         return {
-            version: "1.1.0"
+            version: "1.1.1"
         }
     }
 };
