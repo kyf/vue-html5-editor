@@ -91,6 +91,7 @@ export default {
         },
         toggleDashboard(dashboard){
             this.dashboard = this.dashboard === dashboard ? null : dashboard
+            this.isShowMenu = this.dashboard === dashboard ? true : this.isShowMenu
         },
         execCommand(command, arg){
             this.restoreSelection()
