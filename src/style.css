@@ -147,6 +147,16 @@
 
   }
 
+  & > .content:empty::before{
+    content:attr(placeholder);
+    color:#d1d1d1;
+    white-space:pre;
+  }
+
+  & > .content:focus::before{
+    content:none;
+  }
+
 }
 
 @media (max-width: 767px) {

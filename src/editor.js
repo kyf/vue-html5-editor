@@ -27,7 +27,11 @@ export default {
             type: Boolean,
             default: true
         },
-        showModuleName: {}
+        showModuleName: {},
+        placeholder: {
+            type: String,
+            default: ''
+        }
     },
     data(){
         return {
