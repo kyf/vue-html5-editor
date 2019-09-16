@@ -258,9 +258,9 @@ export default class RangeHandler {
                 break
             }
             case Command.INSERT_HTML: {
-                if (document.execCommand(Command.INSERT_HTML, false, arg)) {
-                    break
-                }
+//                if (document.execCommand(Command.INSERT_HTML, false, arg)) {
+//                    break
+//                }
                 // hack
                 const fragment = document.createDocumentFragment()
                 const div = document.createElement('div')

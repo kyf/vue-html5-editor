@@ -1,7 +1,7 @@
 /**
- * Vue-html5-editor 1.1.8
+ * Vue-html5-editor 1.1.10
  * https://github.com/kyf456/vue-html5-editor
- * build at Thu Jun 27 2019 16:11:16 GMT+0800 (GMT+08:00)
+ * build at Mon Sep 16 2019 19:05:49 GMT+0800 (GMT+08:00)
  */
 
 (function (global, factory) {
@@ -545,7 +545,7 @@ var dashboard$4 = {
     template: template$4,
     data: function data(){
         return {
-            version: "1.1.8"
+            version: "1.1.10"
         }
     }
 };
@@ -1116,9 +1116,9 @@ RangeHandler.prototype.execCommand = function execCommand (command, arg) {
             break
         }
         case Command.INSERT_HTML: {
-            if (document.execCommand(Command.INSERT_HTML, false, arg)) {
-                break
-            }
+//            if (document.execCommand(Command.INSERT_HTML, false, arg)) {
+//                break
+//            }
             // hack
             var fragment = document.createDocumentFragment();
             var div = document.createElement('div');
@@ -1271,10 +1271,10 @@ var editor = {
             this.dashboard = this.dashboard === dashboard ? null : dashboard;
             this.isShowMenu = this.dashboard === dashboard ? true : this.isShowMenu;
         },
-        execCommand: function execCommand(command, arg){
+        execCommand: function execCommand(command, arg, flag){
             this.restoreSelection();
             if (this.range) {
-                new RangeHandler(this.range).execCommand(command, arg);
+                new RangeHandler(this.range).execCommand(command, arg, !!flag);
             }
             this.toggleDashboard();
             this.$emit('change', this.$refs.content.innerHTML);

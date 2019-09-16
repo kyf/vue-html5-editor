@@ -97,10 +97,10 @@ export default {
             this.dashboard = this.dashboard === dashboard ? null : dashboard
             this.isShowMenu = this.dashboard === dashboard ? true : this.isShowMenu
         },
-        execCommand(command, arg){
+        execCommand(command, arg, flag){
             this.restoreSelection()
             if (this.range) {
-                new RangeHandler(this.range).execCommand(command, arg)
+                new RangeHandler(this.range).execCommand(command, arg, !!flag)
             }
             this.toggleDashboard()
             this.$emit('change', this.$refs.content.innerHTML)
