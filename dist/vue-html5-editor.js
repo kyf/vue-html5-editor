@@ -1,7 +1,7 @@
 /**
- * Vue-html5-editor 1.1.10
+ * Vue-html5-editor 1.1.14
  * https://github.com/kyf456/vue-html5-editor
- * build at Mon Sep 16 2019 19:05:49 GMT+0800 (GMT+08:00)
+ * build at Sat Sep 28 2019 08:55:50 GMT+0800 (中国标准时间)
  */
 
 (function (global, factory) {
@@ -393,6 +393,7 @@ var dashboard$3 = {
             }
 
             var file = this.$refs.file.files[0];
+            console.log('origin file is ', file);
             if (file.size > config.sizeLimit) {
                 this.setUploadError(this.$parent.locale['exceed size limit']);
                 return
@@ -404,7 +405,7 @@ var dashboard$3 = {
                     ? config.upload.fieldName : 'image';
                 lrz_all_bundle(file, config.compress).then(function (rst) {
                     if (config.upload) {
-                        component.uploadToServer(rst.file);
+                        component.uploadToServer(rst.file, file.name);
                     } else {
                         component.insertBase64(rst.base64);
                     }
@@ -429,13 +430,14 @@ var dashboard$3 = {
         insertBase64: function insertBase64(data) {
             this.$parent.execCommand(Command.INSERT_IMAGE, data);
         },
-        uploadToServer: function uploadToServer(file) {
+        uploadToServer: function uploadToServer(file, filename) {
             var this$1 = this;
 
             var config = this.$options.module.config;
 
             var formData = new FormData();
-            formData.append(config.upload.fieldName || 'image', file);
+            console.log(file);
+            formData.append(config.upload.fieldName || 'image', file, filename);
 
             if (typeof config.upload.params === 'object') {
                 Object.keys(config.upload.params).forEach(function (key) {
@@ -545,7 +547,7 @@ var dashboard$4 = {
     template: template$4,
     data: function data(){
         return {
-            version: "1.1.10"
+            version: "1.1.14"
         }
     }
 };

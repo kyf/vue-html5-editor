@@ -82,6 +82,7 @@ export default {
             }
 
             const file = this.$refs.file.files[0]
+            console.log('origin file is ', file)
             if (file.size > config.sizeLimit) {
                 this.setUploadError(this.$parent.locale['exceed size limit'])
                 return
@@ -93,7 +94,7 @@ export default {
                     ? config.upload.fieldName : 'image'
                 lrz(file, config.compress).then((rst) => {
                     if (config.upload) {
-                        component.uploadToServer(rst.file)
+                        component.uploadToServer(rst.file, file.name)
                     } else {
                         component.insertBase64(rst.base64)
                     }
@@ -118,11 +119,12 @@ export default {
         insertBase64(data) {
             this.$parent.execCommand(Command.INSERT_IMAGE, data)
         },
-        uploadToServer(file) {
+        uploadToServer(file, filename) {
             const config = this.$options.module.config
 
             const formData = new FormData()
-            formData.append(config.upload.fieldName || 'image', file)
+            console.log(file)
+            formData.append(config.upload.fieldName || 'image', file, filename)
 
             if (typeof config.upload.params === 'object') {
                 Object.keys(config.upload.params).forEach((key) => {
