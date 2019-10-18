@@ -2,7 +2,7 @@
     <div class="toolbar" :style="{'z-index':zIndex+1}" ref="toolbar">
         <ul>
             <template v-for="module in modules">
-                <li :title="locale[module.i18n]" @click="activeModule(module)">
+            <li :title="locale[module.i18n]" @click="activeModule(module)" :class="{'enabled': module.isValid}">
                     <span class="icon" :class="module.icon"></span>
                     <template v-if="showModuleName === undefined ? defaultShowModuleName : showModuleName">
                         &nbsp;{{locale[module.i18n]}}
@@ -16,7 +16,8 @@
             </keep-alive>
         </div>
     </div>
-    <div class="content" ref="content" :style="contentStyle" :placeholder="placeholder"
+    <div class="content" v-show="!showHtml" ref="content" :style="contentStyle" :placeholder="placeholder"
          contenteditable @click="toggleDashboard(dashboard)">
     </div>
+    <textarea class="html-content" v-show="showHtml" v-model="html"></textarea>
 </div>

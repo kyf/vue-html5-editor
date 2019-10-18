@@ -17,15 +17,18 @@
 </head>
 <body>
 <div id="app">
-    <vue-html5-editor :content="content" :height="500"></vue-html5-editor>
+    <button @click="print">print</button>
+    <vue-html5-editor :content="content" @change="showContent" :height="500"></vue-html5-editor>
 </div>
 
 <script>
     Vue.use(VueHtml5Editor, {
+        showModuleName: true,
         hiddenModules: [
             "image"
         ],
         visibleModules: [
+            "html",
             "info",
             "text",
             "color",
@@ -44,7 +47,16 @@
         el: "#app",
         data: {
             content: "<h3>vue html5 editor,custom modules</h3>",
-        }
+        },
+methods: {
+    print(){
+        console.log(this.content);
+    },
+    showContent(val){
+        this.content = val; 
+        console.log(this.content);
+    }
+},
     })
 </script>
 </body>

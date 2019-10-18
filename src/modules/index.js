@@ -12,6 +12,7 @@ import table from './table/index'
 import text from './text/index'
 import undo from './undo/index'
 import unlink from './unlink/index'
+import html from './html/index'
 
 /**
  * build-in moduls
@@ -31,5 +32,6 @@ export default [
     eraser,
     undo,
     fullScreen,
-    info
+    info,
+    html
 ]

@@ -39,6 +39,8 @@ export default {
             // locale: {},
             // modules:{},
             fullScreen: false,
+            showHtml: false,
+            html: '',
             dashboard: null
         }
     },
@@ -49,6 +51,31 @@ export default {
                 this.$refs.content.innerHTML = val
             }
             this.$emit('update:content', val)
+        },
+        showHtml(val) {
+            const ls = ['html', 'full-screen']
+            if (val){
+                this.html = this.$refs.content.innerHTML
+                this.modules = this.modules.map((module) => {
+                    module.isValid = !ls.includes(module.name)
+                    return module
+                })
+                this.dashboard = null
+            } else {
+                this.$refs.content.innerHTML = this.html
+                this.$emit('change', this.html)
+                this.modules = this.modules.map((module) => {
+                    module.isValid = false
+                    return module
+                })
+            }
+        },
+        html(val) {
+            const content = this.$refs.content.innerHTML
+            if (val !== content) {
+                this.$refs.content.innerHTML = val
+            }
+            this.$emit('change', val)
         },
         fullScreen(val){
             const component = this
@@ -83,6 +110,9 @@ export default {
     methods: {
         toggleFullScreen(){
             this.fullScreen = !this.fullScreen
+        },
+        toggleHtml() {
+            this.showHtml = !this.showHtml
         },
         enableFullScreen(){
             this.fullScreen = true
@@ -144,6 +174,7 @@ export default {
             }
         },
         activeModule(module){
+            if (module.isValid) return
             if (typeof module.handler === 'function') {
                 module.handler(this)
                 return
@@ -155,6 +186,7 @@ export default {
     },
     created(){
         this.modules.forEach((module) => {
+            module.isValid = false
             if (typeof module.init === 'function') {
                 module.init(this)
             }
@@ -179,6 +211,7 @@ export default {
             }
         }
 
+        this.html = this.content
         window.addEventListener('touchend', this.touchHandler, false)
     },
     updated(){

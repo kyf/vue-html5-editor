@@ -23,6 +23,13 @@
   overflow: hidden;
   box-sizing: border-box;
 
+  & > .html-content{
+    min-height: 150px;
+    width:100%;
+    outline:none;
+    border:0px;
+  }  
+
   & * {
     box-sizing: border-box;
   }
@@ -45,6 +52,11 @@
       padding: 0;
       margin: 0;
       border-bottom: 1px solid var(--border-color);
+
+      & > .enabled {
+          color:#ccc;
+          cursor:not-allowed;
+      }
 
       & > li {
         display: inline-block;
