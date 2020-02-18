@@ -13,6 +13,8 @@ export default {
     color: 'color',
     'please enter a url': 'please enter a url',
     'create link': 'create link',
+    'img link': 'add image link',
+    'video link': 'add video link',
     bold: 'bold',
     italic: 'italic',
     underline: 'underline',

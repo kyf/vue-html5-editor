@@ -7,6 +7,8 @@ import hr from './hr/index'
 import image from './image/index'
 import info from './info/index'
 import link from './link/index'
+import videolink from './videolink/index'
+import imglink from './imglink/index'
 import list from './list/index'
 import table from './table/index'
 import text from './text/index'
@@ -25,6 +27,7 @@ export default [
     align,
     list,
     link,
+    imglink,
     unlink,
     table,
     image,
@@ -33,5 +36,6 @@ export default [
     undo,
     fullScreen,
     info,
-    html
+    html,
+    videolink
 ]

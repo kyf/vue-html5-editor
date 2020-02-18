@@ -1,7 +1,7 @@
 /**
- * Vue-html5-editor 1.1.14
+ * Vue-html5-editor 1.1.15
  * https://github.com/kyf456/vue-html5-editor
- * build at Fri Oct 18 2019 14:43:17 GMT+0800 (GMT+08:00)
+ * build at Tue Feb 18 2020 14:59:09 GMT+0800 (中国标准时间)
  */
 
 (function (global, factory) {
@@ -176,6 +176,7 @@ var Command = {
     LINE_HEIGHT: 'lineHeight',
     INSERT_HORIZONTAL_RULE: 'insertHorizontalRule',
     INSERT_IMAGE: 'insertImage',
+    INSERT_VIDEO: 'insertVideo',
     CREATE_LINK: 'createLink',
     INSERT_ORDERED_LIST: 'insertOrderedList',
     INSERT_UNORDERED_LIST: 'insertUnorderedList',
@@ -547,7 +548,7 @@ var dashboard$4 = {
     template: template$4,
     data: function data(){
         return {
-            version: "1.1.14"
+            version: "1.1.15"
         }
     }
 };
@@ -601,13 +602,72 @@ var link = {
     dashboard: dashboard$5
 };
 
-var template$6 = "<div> <button type=\"button\" @click=\"$parent.execCommand('insertOrderedList')\"> {{$parent.locale[\"ordered list\"]}} </button> <button type=\"button\" @click=\"$parent.execCommand('insertUnorderedList')\"> {{$parent.locale[\"unordered list\"]}} </button> </div>";
+var template$6 = "<div> <input type=\"text\" :placeholder=\"$parent.locale['please enter a url']\" v-model=\"url\" maxlength=\"1024\"> <button type=\"button\" @click=\"insertImageUrl\">{{$parent.locale[\"video link\"]}}</button> </div> ";
+
+var dashboard$6 = {
+    template: template$6,
+    data: function data(){
+        return {url: null}
+    },
+    methods: {
+        insertImageUrl: function insertImageUrl(){
+            if (!this.url) {
+                return
+            }
+            var html = "<video src=\"" + (this.url) + "\" />";
+            this.$parent.execCommand(Command.INSERT_HTML, html);
+            this.url = null;
+        }
+    }
+};
+
+/**
+ * create link
+ * Created by peak on 16/8/18.
+ */
+var videolink = {
+    name: 'videolink',
+    icon: 'fa fa-file-video-o',
+    i18n: 'videolink',
+    dashboard: dashboard$6
+};
+
+var template$7 = "<div> <input type=\"text\" :placeholder=\"$parent.locale['please enter a url']\" v-model=\"url\" maxlength=\"1024\"> <button type=\"button\" @click=\"insertImageUrl\">{{$parent.locale[\"img link\"]}}</button> </div> ";
+
+var dashboard$7 = {
+    template: template$7,
+    data: function data(){
+        return {url: null}
+    },
+    methods: {
+        insertImageUrl: function insertImageUrl(){
+            if (!this.url) {
+                return
+            }
+            this.$parent.execCommand(Command.INSERT_IMAGE, this.url);
+            this.url = null;
+        }
+    }
+};
+
+/**
+ * create link
+ * Created by peak on 16/8/18.
+ */
+var imglink = {
+    name: 'imglink',
+    icon: 'fa fa-file-image-o',
+    i18n: 'imglink',
+    dashboard: dashboard$7
+};
+
+var template$8 = "<div> <button type=\"button\" @click=\"$parent.execCommand('insertOrderedList')\"> {{$parent.locale[\"ordered list\"]}} </button> <button type=\"button\" @click=\"$parent.execCommand('insertUnorderedList')\"> {{$parent.locale[\"unordered list\"]}} </button> </div>";
 
 /**
  * Created by peak on 2017/2/10.
  */
-var dashboard$6 = {
-    template: template$6
+var dashboard$8 = {
+    template: template$8
 };
 
 /**
@@ -618,16 +678,16 @@ var list = {
     name: 'list',
     icon: 'fa fa-list',
     i18n: 'list',
-    dashboard: dashboard$6
+    dashboard: dashboard$8
 };
 
-var template$7 = "<form @submit.prevent=\"insertTable\"> <label> {{$parent.locale[\"row count\"]}} <input type=\"number\" style=\"width: 60px\" maxlength=\"2\" min=\"2\" max=\"10\" v-model=\"rows\"> </label> <label> {{$parent.locale[\"column count\"]}} <input type=\"number\" style=\"width: 60px\" maxlength=\"2\" min=\"2\" max=\"10\" v-model=\"cols\"> </label> <button type=\"submit\">{{$parent.locale.save}}</button> </form>";
+var template$9 = "<form @submit.prevent=\"insertTable\"> <label> {{$parent.locale[\"row count\"]}} <input type=\"number\" style=\"width: 60px\" maxlength=\"2\" min=\"2\" max=\"10\" v-model=\"rows\"> </label> <label> {{$parent.locale[\"column count\"]}} <input type=\"number\" style=\"width: 60px\" maxlength=\"2\" min=\"2\" max=\"10\" v-model=\"cols\"> </label> <button type=\"submit\">{{$parent.locale.save}}</button> </form>";
 
 /**
  * Created by peak on 2017/2/10.
  */
-var dashboard$7 = {
-    template: template$7,
+var dashboard$9 = {
+    template: template$9,
     data: function data(){
         return {
             rows: 2,
@@ -670,13 +730,13 @@ var table = {
     name: 'tabulation',
     icon: 'fa fa-table',
     i18n: 'table',
-    dashboard: dashboard$7
+    dashboard: dashboard$9
 };
 
-var template$8 = "<div> <button type=\"button\" @click=\"$parent.execCommand('bold')\">{{$parent.locale[\"bold\"]}}</button> <button type=\"button\" @click=\"$parent.execCommand('italic')\">{{$parent.locale[\"italic\"]}}</button> <button type=\"button\" @click=\"$parent.execCommand('underline')\">{{$parent.locale[\"underline\"]}}</button> <button type=\"button\" @click=\"$parent.execCommand('strikeThrough')\">{{$parent.locale[\"strike through\"]}} </button> <button type=\"button\" @click=\"$parent.execCommand('subscript')\">{{$parent.locale[\"subscript\"]}}</button> <button type=\"button\" @click=\"$parent.execCommand('superscript')\">{{$parent.locale[\"superscript\"]}}</button> </div> ";
+var template$10 = "<div> <button type=\"button\" @click=\"$parent.execCommand('bold')\">{{$parent.locale[\"bold\"]}}</button> <button type=\"button\" @click=\"$parent.execCommand('italic')\">{{$parent.locale[\"italic\"]}}</button> <button type=\"button\" @click=\"$parent.execCommand('underline')\">{{$parent.locale[\"underline\"]}}</button> <button type=\"button\" @click=\"$parent.execCommand('strikeThrough')\">{{$parent.locale[\"strike through\"]}} </button> <button type=\"button\" @click=\"$parent.execCommand('subscript')\">{{$parent.locale[\"subscript\"]}}</button> <button type=\"button\" @click=\"$parent.execCommand('superscript')\">{{$parent.locale[\"superscript\"]}}</button> </div> ";
 
-var dashboard$8 = {
-    template: template$8
+var dashboard$10 = {
+    template: template$10
 };
 
 /**
@@ -687,7 +747,7 @@ var text = {
     name: 'text',
     icon: 'fa fa-pencil',
     i18n: 'text',
-    dashboard: dashboard$8
+    dashboard: dashboard$10
 };
 
 /**
@@ -740,6 +800,7 @@ var buildInModules = [
     align,
     list,
     link,
+    imglink,
     unlink,
     table,
     image,
@@ -748,7 +809,8 @@ var buildInModules = [
     undo,
     fullScreen$1,
     info,
-    html$1
+    html$1,
+    videolink
 ];
 
 /**
@@ -1119,6 +1181,10 @@ RangeHandler.prototype.execCommand = function execCommand (command, arg) {
             document.execCommand(Command.INSERT_IMAGE, false, arg);
             break
         }
+        case Command.INSERT_VIDEO: {
+            document.execCommand(Command.INSERT_VIDEO, false, arg);
+            break
+        }
         case Command.CREATE_LINK: {
             document.execCommand(Command.CREATE_LINK, false, arg);
             break
@@ -1189,13 +1255,13 @@ RangeHandler.prototype.execCommand = function execCommand (command, arg) {
 
 __$styleInject(".vue-html5-editor{font-size:14px;line-height:1.5;background-color:#fff;color:#333;border:1px solid #ddd;text-align:left;border-radius:5px;overflow:hidden;box-sizing:border-box}.vue-html5-editor>.html-content{min-height:150px;width:100%;outline:0;border:0}.vue-html5-editor *{box-sizing:border-box}.vue-html5-editor.full-screen{position:fixed!important;top:0!important;left:0!important;bottom:0!important;right:0!important;border-radius:0}.vue-html5-editor>.toolbar{position:relative;background-color:inherit}.vue-html5-editor>.toolbar>ul{list-style:none;padding:0;margin:0;border-bottom:1px solid #ddd}.vue-html5-editor>.toolbar>ul>.enabled{color:#ccc;cursor:not-allowed}.vue-html5-editor>.toolbar>ul>li{display:inline-block;cursor:pointer;text-align:center;line-height:36px;padding:0 10px}.vue-html5-editor>.toolbar>ul>li .icon{height:16px;width:16px;display:inline-block;vertical-align:middle}.vue-html5-editor>.toolbar>.dashboard-hidden{height:0!important;border:0!important;padding:0!important}.vue-html5-editor>.toolbar>.dashboard{background-color:inherit;border-bottom:1px solid #ddd;padding:10px;position:absolute;top:100%;left:0;right:0;overflow:auto}.vue-html5-editor>.toolbar>.dashboard input[type=number],.vue-html5-editor>.toolbar>.dashboard select{padding:6px 12px;color:inherit;background-color:transparent;border:1px solid #ddd;border-radius:5px}.vue-html5-editor>.toolbar>.dashboard input[type=number]:hover,.vue-html5-editor>.toolbar>.dashboard input[type=text]:hover,.vue-html5-editor>.toolbar>.dashboard select:hover{border-color:#bebebe}.vue-html5-editor>.toolbar>.dashboard input[type=number][disabled],.vue-html5-editor>.toolbar>.dashboard input[type=number][readonly],.vue-html5-editor>.toolbar>.dashboard input[type=text][disabled],.vue-html5-editor>.toolbar>.dashboard input[type=text][readonly],.vue-html5-editor>.toolbar>.dashboard select[disabled],.vue-html5-editor>.toolbar>.dashboard select[readonly]{background-color:#eee;opacity:1}.vue-html5-editor>.toolbar>.dashboard input[type=number][disabled],.vue-html5-editor>.toolbar>.dashboard input[type=text][disabled],.vue-html5-editor>.toolbar>.dashboard select[disabled]{cursor:not-allowed}.vue-html5-editor>.toolbar>.dashboard button{color:inherit;background-color:inherit;padding:6px 12px;white-space:nowrap;vertical-align:middle;cursor:pointer;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;border:1px solid #ddd;border-radius:5px;margin-right:4px;margin-bottom:4px}.vue-html5-editor>.toolbar>.dashboard button:hover{border-color:#bebebe}.vue-html5-editor>.toolbar>.dashboard button[disabled]{cursor:not-allowed;opacity:.68}.vue-html5-editor>.toolbar>.dashboard button:last-child{margin-right:0}.vue-html5-editor>.toolbar>.dashboard label{font-weight:bolder}.vue-html5-editor>.content{overflow:auto;padding:10px}.vue-html5-editor>.content:focus{outline:0}.vue-html5-editor>.content:empty::before{content:attr(placeholder);color:#d1d1d1;white-space:pre}.vue-html5-editor>.content:focus::before{content:none}@media (max-width:767px){.vue-html5-editor{margin-bottom:5px;width:100%!important}button:last-child,input[type=number]:last-child,input[type=text]:last-child,label:last-child,select:last-child{margin-bottom:0}}button:last-child,input:last-child,label:last-child,select:last-child{margin-right:0}",undefined);
 
-var template$9 = "<div class=\"vue-html5-editor\" :class=\"{'full-screen':fullScreen}\" :style=\"{'z-index':zIndex}\"> <div class=\"toolbar\" :style=\"{'z-index':zIndex+1}\" ref=\"toolbar\"> <ul> <template v-for=\"module in modules\"> <li :title=\"locale[module.i18n]\" @click=\"activeModule(module)\" :class=\"{'enabled': module.isValid}\"> <span class=\"icon\" :class=\"module.icon\"></span> <template v-if=\"showModuleName === undefined ? defaultShowModuleName : showModuleName\"> &nbsp;{{locale[module.i18n]}} </template> </li> </template> </ul> <div class=\"dashboard\" v-show=\"dashboard\" ref=\"dashboard\"> <keep-alive> <div v-show=\"dashboard\" :is=\"dashboard\"></div> </keep-alive> </div> </div> <div class=\"content\" v-show=\"!showHtml\" ref=\"content\" :style=\"contentStyle\" :placeholder=\"placeholder\" contenteditable @click=\"toggleDashboard(dashboard)\"> </div> <textarea class=\"html-content\" v-show=\"showHtml\" v-model=\"html\"></textarea> </div> ";
+var template$11 = "<div class=\"vue-html5-editor\" :class=\"{'full-screen':fullScreen}\" :style=\"{'z-index':zIndex}\"> <div class=\"toolbar\" :style=\"{'z-index':zIndex+1}\" ref=\"toolbar\"> <ul> <template v-for=\"module in modules\"> <li :title=\"locale[module.i18n]\" @click=\"activeModule(module)\" :class=\"{'enabled': module.isValid}\"> <span class=\"icon\" :class=\"module.icon\"></span> <template v-if=\"showModuleName === undefined ? defaultShowModuleName : showModuleName\"> &nbsp;{{locale[module.i18n]}} </template> </li> </template> </ul> <div class=\"dashboard\" v-show=\"dashboard\" ref=\"dashboard\"> <keep-alive> <div v-show=\"dashboard\" :is=\"dashboard\"></div> </keep-alive> </div> </div> <div class=\"content\" v-show=\"!showHtml\" ref=\"content\" :style=\"contentStyle\" :placeholder=\"placeholder\" contenteditable @click=\"toggleDashboard(dashboard)\"> </div> <textarea class=\"html-content\" v-show=\"showHtml\" v-model=\"html\"></textarea> </div> ";
 
 /**
  * Created by peak on 2017/2/9.
  */
 var editor = {
-    template: template$9,
+    template: template$11,
     props: {
         content: {
             type: String,
@@ -1443,6 +1509,8 @@ var i18nZhCn = {
     color: '颜色',
     'please enter a url': '请输入地址',
     'create link': '创建链接',
+    'img link': '插入图片',
+    'video link': '插入视频',
     bold: '加粗',
     italic: '倾斜',
     underline: '下划线',
@@ -1490,6 +1558,8 @@ var i18nEnUs = {
     color: 'color',
     'please enter a url': 'please enter a url',
     'create link': 'create link',
+    'img link': 'add image link',
+    'video link': 'add video link',
     bold: 'bold',
     italic: 'italic',
     underline: 'underline',

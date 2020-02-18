@@ -13,6 +13,8 @@ export default {
     color: '颜色',
     'please enter a url': '请输入地址',
     'create link': '创建链接',
+    'img link': '插入图片',
+    'video link': '插入视频',
     bold: '加粗',
     italic: '倾斜',
     underline: '下划线',
